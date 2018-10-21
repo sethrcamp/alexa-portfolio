@@ -11,7 +11,14 @@ $app->group('/', function() use ($app) {
                     "type" => "PlainText",
                     "text" => "Hi! This worked!",
                     "playBehavior" => "REPLACE_ALL"
-                ]
+                ],
+                "reprompt" => [
+                    "outputSpeech" => [
+                        "type" => "PlainText",
+                        "text" => "Can I help you with anything else?"
+                    ]
+                 ],
+                "shouldEndSession" => false
             ]
         ];
 
