@@ -4,20 +4,18 @@
 $app->group('/', function() use ($app) {
 
     $app->post('', function ($request, $response, $args) {
+        $body = $request->getParsedBody();
+
+        $intent_name = $body['request']['intent']['name'];
+
         $res = [
             "version" => "1.0",
             "response" => [
                 "outputSpeech" => [
                     "type" => "PlainText",
-                    "text" => "Hi! This worked!",
+                    "text" => "You are useing the ".$intent_name." intent!",
                     "playBehavior" => "REPLACE_ALL"
                 ],
-                "reprompt" => [
-                    "outputSpeech" => [
-                        "type" => "PlainText",
-                        "text" => "Can I help you with anything else?"
-                    ]
-                 ],
                 "shouldEndSession" => false
             ]
         ];
