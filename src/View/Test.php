@@ -1,5 +1,6 @@
 <?php
 
+require __DIR__."../Controller/IntentController.php";
 
 $app->group('/', function() use ($app) {
 
@@ -8,19 +9,36 @@ $app->group('/', function() use ($app) {
 
         $intent_name = $body['request']['intent']['name'];
 
-        $res = [
-            "version" => "1.0",
-            "response" => [
-                "outputSpeech" => [
-                    "type" => "PlainText",
-                    "text" => "You are useing the ".$intent_name." intent!",
-                    "playBehavior" => "REPLACE_ALL"
-                ],
-                "shouldEndSession" => false
-            ]
-        ];
+        switch($intent_name) {
+            case "about":   return IntentController::about($request, $response, $args);
+            case "project": return IntentController::project($request, $response, $args);
+            case "work":    return IntentController::work($request, $response, $args);
+            case "more":    return IntentController::more($request, $response, $args);
+            default: {
 
-        return $response->withJson($res);
+                if($intent_name === "AMAZON.FallbackIntent") {
+                    $error_message = "Hmm, I didn't quite understand that.";
+                    $should_end_session = false;
+                } else {
+                    $error_message = "Unfortunatly, I seem to be having problems. Check back later!";
+                    $should_end_session = true;
+                }
+
+                $res = [
+                    "version" => "1.0",
+                    "response" => [
+                        "outputSpeech" => [
+                            "type" => "PlainText",
+                            "text" => $error_message,
+                            "playBehavior" => "REPLACE_ALL"
+                        ],
+                        "shouldEndSession" => $should_end_session
+                    ]
+                ];
+
+                return $response->withJson($res);
+            }
+        }
     });
 
 
