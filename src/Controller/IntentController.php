@@ -148,7 +148,7 @@ class IntentController {
         $body = $request->getParsedBody();
 
         if(isset($body['session']['attributes'])) {
-            if($body['session']['attributes']['project_index'] > sizeof($projects) - 1) {
+            if($body['session']['attributes']['project_index'] >= sizeof($projects) - 1) {
                 $project_index = 0;
             } else {
                 $project_index = $body['session']['attributes']['project_index'] + 1;
