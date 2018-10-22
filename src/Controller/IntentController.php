@@ -2,7 +2,7 @@
 
 class IntentController {
 
-    public static function get_response_object($message, $ssml = "") {
+    public static function get_response_object($message, $ssml = "", $sessionAttributes = []) {
         return $res = [
             "version" => "1.0",
             "response" => [
@@ -12,6 +12,7 @@ class IntentController {
                     "ssml" => $ssml,
                     "playBehavior" => "REPLACE_ALL"
                 ],
+                "sessionAttributes" => $sessionAttributes,
                 "shouldEndSession" => false
             ]
         ];
@@ -19,7 +20,8 @@ class IntentController {
 
     public static function start($request, $response, $args) {
         $message = "Welcome to Seth Campbell's portfolio! Here you can learn about Seth Campbell, ".
-                   "his past projects, previous work experience, and hear how to learn more information about Seth!";
+                   "his past projects, previous work experience, and hear how to learn more information about Seth!".
+                   "Try asking about what he is like, about a past project, about previous work history, or about more info.";
 
         $alexa_response = self::get_response_object($message);
         return $response->withJson($alexa_response);
@@ -143,9 +145,25 @@ class IntentController {
              </speak>"
         ];
 
-        $ssml = $projects[rand(0, sizeof($projects)-1)];
+        $body = $request->getParsedBody();
 
-        $alexa_response = self::get_response_object($ssml, $ssml);
+        if(isset($body['session']['attributes'])) {
+            if($body['session']['attributes']['project_index'] > sizeof($projects) - 1) {
+                $project_index = 0;
+            } else {
+                $project_index = $body['session']['attributes']['project_index'] + 1;
+            }
+        } else {
+            $project_index = 0;
+        }
+
+        $session_attributes = [
+            'unheard_indexes' => $project_index
+        ];
+
+        $ssml = $projects[$project_index];
+
+        $alexa_response = self::get_response_object($ssml, $ssml, $session_attributes);
         return $response->withJson($alexa_response);
     }
 
@@ -163,7 +181,11 @@ class IntentController {
     }
 
     public static function more($request, $response, $args) {
-        $ssml = "<speak>If you would like to learn more about Seth, you should check out his main portfolio site at seth<break time='0s'/>r<break time='0s'/>camp.com!</speak>";
+        $ssml = "<speak>
+                     If you would like to learn more about Seth, 
+                     you should check out his main portfolio site at seth<break time='0s'/>r<break time='0s'/>camp.com or
+                     you can ask me what he is like, about his past projects, and his past work history.
+                </speak>";
 
         $alexa_response = self::get_response_object($ssml, $ssml);
         return $response->withJson($alexa_response);

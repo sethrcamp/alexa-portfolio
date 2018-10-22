@@ -21,7 +21,7 @@ $app->group('/', function() use ($app) {
             default: {
 
                 if($intent_name === "AMAZON.FallbackIntent") {
-                    $error_message = "Hmm, I didn't quite understand that.";
+                    $error_message = "Hmm, I didn't quite understand that. Try asking what Seth is like, about his projects, about his work history, or about where to learn more information.";
                     $should_end_session = false;
                 } else {
                     $error_message = "Unfortunatly, I seem to be having problems. Check back later!";
