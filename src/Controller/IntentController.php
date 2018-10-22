@@ -59,19 +59,91 @@ class IntentController {
                      Slim,
                      PDO,
                      JavaScript,
-                     Node.js,
+                     NodeJS,
                      Slack Integration,
                      LAMP Stack, and
                      MySQL
                  </p>
              </speak>",
-            "<speak></speak>",
-            "<speak></speak>",
-            "<speak></speak>",
-            "<speak></speak>"
+            "<speak>
+                 <p>You are in for a treat!</p>
+                 <p>
+                     In 2017, Seth was the JPM for the BSU Multisite platform.
+                     The BSU Multisite is a platform developed to service Ball State faculty and 
+                     staff by creating an easy-to-use website creation platform. As the Junior Project 
+                     Manager for the project, Seth's roles were to organize a team of over 20 students, 
+                     communicate with the client, and insure a timely delivery of the platform to the users.
+                 </p>
+             </speak>",
+            "<speak>
+                 <p>This one is very interesting!</p>
+                 <p>
+                     In 2017, Seth worked on a project for the Career Center at Ball State.
+                     The Career Center Certifications System was created for the Ball State University Career Center, 
+                     and completely automates the process for both admins and students partaking in their intern and 
+                     career ready programs. The system uses ReactJS for both frontends and PHP for the backend. Features 
+                     include statistic reporting for admins, organizational tools for the admin approval process, and a 
+                     student dashboard to track progress, receive notifications, and submit content for approval.
+                 </p>
+                 <p>
+                     The following technologies were used on this project:
+                     ReactJS,
+                     Ajax,
+                     SSO,
+                     Relational Database Design,
+                     PHP,
+                     Slim,
+                     PDO,
+                     JavaScript,
+                     LAMP Stack, and
+                     MySQL
+                 </p>
+             </speak>",
+            "<speak>
+                 <p>This one sounds great!</p>
+                 <p>
+                     In 2017 and 2018, Seth worked on the Ball State Chirper app!
+                     The Ball State Chirper app is a React Native app that promotes school pride through the 
+                     use of games, a fight song, custom stickers, and of coarse, the classic chirp button! The 
+                     app was a revamp of the original, and is a good example of my work with React Native, specifically 
+                     my work incorporating native android modules.
+                 </p>
+                 <p>
+                     The following technologies were used on this project:
+                     React Native,
+                     JavaScript, and
+                     Java
+                 </p>
+             </speak>",
+            "<speak>
+                 <p>I think you'll like this one!</p>
+                 <p>
+                     In 2017 and 2018, Seth worked on the Water Project.
+                     The Water Project was a joint venture with The Digital Corps, 
+                     another group of students called The Blue Roots Project, and a 
+                     non-for-profit called The Circle of Blue. The purpose of the web-based 
+                     platform is to increase awareness of the world-wide water crisis. The platform utilizes ReactJS, 
+                     as well as many JS libraries in order to provide an interactive globe, and content management system. 
+                     This project is a prime example of Seth's work with Component-based organization, and data manipulation.
+                 </p>
+                 <p>
+                     The following technologies were used on this project:
+                     ReactJS,
+                     CesiumJS,
+                     Bing Maps,
+                     Ajax,
+                     Relational Database Design,
+                     PHP,
+                     Slim,
+                     PDO,
+                     JavaScript,
+                     LAMP Stack, and
+                     MySQL
+                 </p>
+             </speak>"
         ];
 
-        $ssml = $projects[0];
+        $ssml = $projects[rand(0, sizeof($projects)-1)];
 
         $alexa_response = self::get_response_object($ssml, $ssml);
         return $response->withJson($alexa_response);
