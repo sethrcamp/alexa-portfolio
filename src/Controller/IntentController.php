@@ -2,13 +2,14 @@
 
 class IntentController {
 
-    public static function get_response_object($message) {
+    public static function get_response_object($message, $ssml = "") {
         return $res = [
             "version" => "1.0",
             "response" => [
                 "outputSpeech" => [
                     "type" => "PlainText",
                     "text" => $message,
+                    "ssml" => $ssml,
                     "playBehavior" => "REPLACE_ALL"
                 ],
                 "shouldEndSession" => false
@@ -45,14 +46,22 @@ class IntentController {
 
     public static function work($request, $response, $args) {
         $message = "Seth is currently working as a Development Master and Junior Project Manager at the Digital Corps, ".
-                   "a student run digital production group lead by a few Ball State Staff members. Over his time at the ".
+                   "a student run digital production group led by a few Ball State Staff members. Over his time at the ".
                    "Digital Corps, Seth has been promoted twice, starting as an Apprentice, then working his way to a ".
                    "Specialist before becoming a Master. He has been with the Digital Corps since September of 2016, and ".
                    "since then, he has been privileged to work on over 20 projects including work in frontend, backend, ".
                    "mobile, AR, and VR development. He also has had project management experience, once managing a project ".
                    "that included over 25 of his peers. To learn more about the projects Seth has worked on, just ask!";
 
-        $alexa_response = self::get_response_object($message);
+        $ssml = "<speak>Seth is currently working as a Development Master and Junior Project Manager at the Digital Corps, ".
+            "a student run digital production group led by a few Ball State Staff members. Over his time at the ".
+            "Digital Corps, Seth has been promoted twice, starting as an Apprentice, then working his way to a ".
+            "Specialist before becoming a Master. He has been with the Digital Corps since September of 2016, and ".
+            "since then, he has been privileged to work on over 20 projects including work in frontend, backend, ".
+            "mobile, <say-as interpret-as='characters'>AR</say-as>, and VR development. He also has had project management experience, once managing a project ".
+            "that included over 25 of his peers. To learn more about the projects Seth has worked on, just ask!</speak>";
+
+        $alexa_response = self::get_response_object($message, $ssml);
         return $response->withJson($alexa_response);
     }
 
