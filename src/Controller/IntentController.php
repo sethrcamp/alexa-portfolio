@@ -105,8 +105,8 @@ class IntentController {
                      In 2017 and 2018, Seth worked on the Ball State Chirper app!
                      The Ball State Chirper app is a React Native app that promotes school pride through the 
                      use of games, a fight song, custom stickers, and of coarse, the classic chirp button! The 
-                     app was a revamp of the original, and is a good example of my work with React Native, specifically 
-                     my work incorporating native android modules.
+                     app was a revamp of the original, and is a good example of Seth's work with React Native, specifically 
+                     his work incorporating native android modules.
                  </p>
                  <p>
                      The following technologies were used on this project:
