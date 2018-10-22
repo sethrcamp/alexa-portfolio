@@ -7,6 +7,10 @@ $app->group('/', function() use ($app) {
     $app->post('', function ($request, $response, $args) {
         $body = $request->getParsedBody();
 
+        if($body['request']['type'] === "SessionEndedRequest") {
+            return IntentController::start($request, $response, $args);
+        }
+
         $intent_name = $body['request']['intent']['name'];
 
         switch($intent_name) {

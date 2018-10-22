@@ -8,12 +8,20 @@ class IntentController {
             "response" => [
                 "outputSpeech" => [
                     "type" => "PlainText",
-                    "text" => "",
+                    "text" => $message,
                     "playBehavior" => "REPLACE_ALL"
                 ],
                 "shouldEndSession" => false
             ]
         ];
+    }
+
+    public static function start($request, $response, $args) {
+        $message = "Welcome to Seth Campbell's portfolio! Here you can learn about Seth Campbell, ".
+                   "his past projects, previous work experience, and hear how to learn more information about Seth!";
+
+        $response = self::get_response_object($message);
+        return $response->withJson($response);
     }
 
     public static function about($request, $response, $args) {
