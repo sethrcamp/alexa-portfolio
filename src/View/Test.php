@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__."../Controller/IntentController.php";
+require_once __DIR__."/../Controller/IntentController.php";
 
 $app->group('/', function() use ($app) {
 
