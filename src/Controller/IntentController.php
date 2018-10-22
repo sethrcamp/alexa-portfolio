@@ -5,6 +5,7 @@ class IntentController {
     public static function get_response_object($message, $ssml = "", $sessionAttributes = []) {
         return $res = [
             "version" => "1.0",
+            "sessionAttributes" => $sessionAttributes,
             "response" => [
                 "outputSpeech" => [
                     "type" => ($ssml !== "" ? "SSML" : "PlainText"),
@@ -12,7 +13,6 @@ class IntentController {
                     "ssml" => $ssml,
                     "playBehavior" => "REPLACE_ALL"
                 ],
-                "sessionAttributes" => $sessionAttributes,
                 "shouldEndSession" => false
             ]
         ];
@@ -158,7 +158,7 @@ class IntentController {
         }
 
         $session_attributes = [
-            'unheard_indexes' => $project_index
+            'project_index' => $project_index
         ];
 
         $ssml = $projects[$project_index];
