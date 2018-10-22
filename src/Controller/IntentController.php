@@ -38,9 +38,42 @@ class IntentController {
     }
 
     public static function project($request, $response, $args) {
-        $message = "This intent is not yet implemented";
+        $projects = [
+            "<speak>
+                 <p>Here is a fun one!</p>
+                 <p>
+                     In 2016, Seth worked on the Equipment Checkout System for internal use at the Digital Corps. 
+                     The System is comprised of five total repositories and is a full service solution 
+                     that completely automated the once paper-only system, allowing students to create reservations, 
+                     and check out various pieces of equipment. The system is also completely integrated with Slack, a messaging software, 
+                     so that admins can review reservations, and users can be notified of any important events. The 
+                     Equipment Checkout System is an excellent example of one of the full stack solutions Seth has worked on.
+                 </p>
+                 <p>
+                     The following technologies were used on this project:
+                     AngularJS,
+                     Ajax,
+                     SSO,
+                     Relational Database Design,
+                     PHP,
+                     Slim,
+                     PDO,
+                     JavaScript,
+                     Node.js,
+                     Slack Integration,
+                     LAMP Stack, and
+                     MySQL
+                 </p>
+             </speak>",
+            "<speak></speak>",
+            "<speak></speak>",
+            "<speak></speak>",
+            "<speak></speak>"
+        ];
 
-        $alexa_response = self::get_response_object($message);
+        $ssml = $projects[0];
+
+        $alexa_response = self::get_response_object($ssml, $ssml);
         return $response->withJson($alexa_response);
     }
 
