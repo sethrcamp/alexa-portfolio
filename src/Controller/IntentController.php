@@ -25,11 +25,11 @@ class IntentController {
     }
 
     public static function about($request, $response, $args) {
-        $message = "Seth Campbell is a full-stack developer currently living in Muncie, Indiana and ".
-                   "attending Ball State University for Computer Science.".
-                   "He is skilled in many programming technologies, such as React.js, React Native, Slim, PDO, and many more.".
-                   "Seth is also skilled in several different languages including Java, JavaScript, PHP, HTML, CSS, and MySQL.".
-                   "He currently holds the rank of Development Master and Junior Project Manager at the Digital Corps".
+        $message = "Seth Campbell is a full-stack developer currently living in Muncie Indiana and ".
+                   "attending Ball State University for Computer Science. ".
+                   "He is skilled in many programming technologies, such as ReactJS, React Native, Slim, PDO, and many more. ".
+                   "Seth is also skilled in several different languages including Java, JavaScript, PHP, HTML, CSS, and MySQL. ".
+                   "He currently holds the rank of Development Master and Junior Project Manager at the Digital Corps. ".
                    "If you would like to know more about his previous projects, work history, or where to find more information, just ask!";
 
         $alexa_response = self::get_response_object($message);
