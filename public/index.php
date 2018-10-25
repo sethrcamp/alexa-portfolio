@@ -31,6 +31,8 @@ require __DIR__ . '/../src/dependencies.php';
 // Register routes
 require __DIR__ . '/../src/View/Test.php';
 
+const DEV_MODE = true;
+
 
 // Run app
 $app->run();

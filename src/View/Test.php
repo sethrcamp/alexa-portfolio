@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__."/../Controller/IntentController.php";
+require_once __DIR__."/../valid_request.php";
 
 $app->group('/', function() use ($app) {
 
@@ -8,12 +9,11 @@ $app->group('/', function() use ($app) {
         $body = $request->getParsedBody();
 
 
-        include('../valid_request.php');
         $valid = validate_request( explode("amzn1.ask.skill.", $body['context']['System']['application']['applicationId'])[1], explode("amzn1.ask.account.", $body['context']['System']['user']['userId'])[1] );
-        if ( ! $valid['success'] )  {
+        if ( !DEV_MODE && !$valid['success'] )  {
             error_log( 'Request failed: ' . $valid['message'] );
             header("HTTP/1.1 400 Bad Request");
-            die();
+            die(DEV_MODE ? "Unvalidated" : "");
         }
 
 
