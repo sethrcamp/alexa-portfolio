@@ -21,9 +21,18 @@ class IntentController {
     public static function start($request, $response, $args) {
         $message = "Welcome to Seth Campbell's portfolio! Here you can learn about Seth Campbell, ".
                    "his past projects, previous work experience, and hear how to learn more information about Seth!".
-                   "Try asking about what he is like, about a past project, about previous work history, or about more info.";
+                   "Try asking about what he is like, about a past project, about previous work history, or about more info. What would you like to know?";
 
         $alexa_response = self::get_response_object($message);
+        return $response->withJson($alexa_response);
+    }
+
+    public static function stop($request, $response, $args) {
+        $message = "Come back anytime with questions about Seth!";
+
+        $alexa_response = self::get_response_object($message);
+        $alexa_response['response']['shouldEndSession'] = true;
+
         return $response->withJson($alexa_response);
     }
 
@@ -33,7 +42,8 @@ class IntentController {
                    "He is skilled in many programming technologies, such as ReactJS, React Native, Slim, PDO, and many more. ".
                    "Seth is also skilled in several different languages including Java, JavaScript, PHP, HTML, CSS, and MySQL. ".
                    "He currently holds the rank of Development Master and Junior Project Manager at the Digital Corps. ".
-                   "If you would like to know more about his previous projects, work history, or where to find more information, just ask!";
+                   "If you would like to know more about his previous projects, work history, or where to find more information, just ask!".
+                   "What else would you like to know?";
 
         $alexa_response = self::get_response_object($message);
         return $response->withJson($alexa_response);
@@ -66,6 +76,7 @@ class IntentController {
                      LAMP Stack, and
                      MySQL
                  </p>
+                 What else would you like to know?
              </speak>",
             "<speak>
                  <p>You are in for a treat!</p>
@@ -76,6 +87,7 @@ class IntentController {
                      Manager for the project, Seth's roles were to organize a team of over 20 students, 
                      communicate with the client, and insure a timely delivery of the platform to the users.
                  </p>
+                 What else would you like to know?
              </speak>",
             "<speak>
                  <p>This one is very interesting!</p>
@@ -100,6 +112,7 @@ class IntentController {
                      LAMP Stack, and
                      MySQL
                  </p>
+                 What else would you like to know?
              </speak>",
             "<speak>
                  <p>This one sounds great!</p>
@@ -116,6 +129,7 @@ class IntentController {
                      JavaScript, and
                      Java
                  </p>
+                 What else would you like to know?
              </speak>",
             "<speak>
                  <p>I think you'll like this one!</p>
@@ -142,6 +156,7 @@ class IntentController {
                      LAMP Stack, and
                      MySQL
                  </p>
+                 What else would you like to know?
              </speak>"
         ];
 
@@ -174,7 +189,8 @@ class IntentController {
             "Specialist before becoming a Master. He has been with the Digital Corps since September of 2016, and ".
             "since then, he has been privileged to work on over 20 projects including work in frontend, backend, ".
             "mobile, <say-as interpret-as='characters'>AR</say-as>, and VR development. He also has had project management experience, once managing a project ".
-            "that included over 25 of his peers. To learn more about the projects Seth has worked on, just ask!</speak>";
+            "that included over 25 of his peers. To learn more about the projects Seth has worked on, just ask!
+             What else would you like to know?</speak>";
 
         $alexa_response = self::get_response_object($ssml, $ssml);
         return $response->withJson($alexa_response);
@@ -185,6 +201,7 @@ class IntentController {
                      If you would like to learn more about Seth, 
                      you should check out his main portfolio site at seth<break time='0s'/>r<break time='0s'/>camp.com or
                      you can ask me what he is like, about his past projects, and his past work history.
+                     What else would you like to know?
                 </speak>";
 
         $alexa_response = self::get_response_object($ssml, $ssml);

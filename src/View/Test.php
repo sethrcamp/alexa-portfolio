@@ -7,6 +7,17 @@ $app->group('/', function() use ($app) {
     $app->post('', function ($request, $response, $args) {
         $body = $request->getParsedBody();
 
+
+        include('../valid_request.php');
+        $valid = validate_request( explode("amzn1.ask.skill.", $body['context']['System']['application']['applicationId'])[1], explode("amzn1.ask.account.", $body['context']['System']['user']['userId'])[1] );
+        if ( ! $valid['success'] )  {
+            error_log( 'Request failed: ' . $valid['message'] );
+            header("HTTP/1.1 400 Bad Request");
+            die();
+        }
+
+
+
         if($body['request']['type'] === "LaunchRequest") {
             return IntentController::start($request, $response, $args);
         }
@@ -14,17 +25,20 @@ $app->group('/', function() use ($app) {
         $intent_name = $body['request']['intent']['name'];
 
         switch($intent_name) {
-            case "about":   return IntentController::about($request, $response, $args);
-            case "project": return IntentController::project($request, $response, $args);
-            case "work":    return IntentController::work($request, $response, $args);
-            case "more":    return IntentController::more($request, $response, $args);
+            case "about":                  return IntentController::about($request, $response, $args);
+            case "project":                return IntentController::project($request, $response, $args);
+            case "work":                   return IntentController::work($request, $response, $args);
+            case "more":                   return IntentController::more($request, $response, $args);
+            case "AMAZON.HelpIntent":      return IntentController::more($request, $response, $args);
+            case "AMAZON.CancelIntent":    return IntentController::start($request, $response, $args);
+            case "AMAZON.StopIntent":      return IntentController::stop($request, $response, $args);
             default: {
 
                 if($intent_name === "AMAZON.FallbackIntent") {
                     $error_message = "Hmm, I didn't quite understand that. Try asking what Seth is like, about his projects, about his work history, or about where to learn more information.";
                     $should_end_session = false;
                 } else {
-                    $error_message = "Unfortunatly, I seem to be having problems. Check back later!";
+                    $error_message = "Unfortunately, I seem to be having problems. Check back later!";
                     $should_end_session = true;
                 }
 
