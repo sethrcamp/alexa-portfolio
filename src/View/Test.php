@@ -17,7 +17,7 @@ $app->group('/', function() use ($app) {
         }
 
         if($body['request']['type'] === "SessionEndedRequest") {
-            die();
+            return $response;
         }
 
         if($body['request']['type'] === "LaunchRequest") {
