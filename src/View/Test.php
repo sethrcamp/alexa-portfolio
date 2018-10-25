@@ -16,7 +16,9 @@ $app->group('/', function() use ($app) {
             die(DEV_MODE ? "Unvalidated" : "");
         }
 
-
+        if($body['request']['type'] === "SessionEndedRequest") {
+            die();
+        }
 
         if($body['request']['type'] === "LaunchRequest") {
             return IntentController::start($request, $response, $args);
@@ -30,7 +32,7 @@ $app->group('/', function() use ($app) {
             case "work":                   return IntentController::work($request, $response, $args);
             case "more":                   return IntentController::more($request, $response, $args);
             case "AMAZON.HelpIntent":      return IntentController::more($request, $response, $args);
-            case "AMAZON.CancelIntent":    return IntentController::start($request, $response, $args);
+            case "AMAZON.CancelIntent":    return IntentController::stop($request, $response, $args);
             case "AMAZON.StopIntent":      return IntentController::stop($request, $response, $args);
             default: {
 
