@@ -16,6 +16,10 @@ $app->group('/', function() use ($app) {
             die(DEV_MODE ? "Unvalidated" : "");
         }
 
+        if($body['request']['type'] === "SessionEndedRequest") {
+            return $response->withJson(["version" => "1.0"]);
+        }
+
 
         if ($body['request']['type'] === "LaunchRequest") {
             return IntentController::start($request, $response, $args);
