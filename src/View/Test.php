@@ -12,8 +12,7 @@ $app->group('/', function() use ($app) {
         $valid = validate_request( explode("amzn1.ask.skill.", $body['context']['System']['application']['applicationId'])[1], explode("amzn1.ask.account.", $body['context']['System']['user']['userId'])[1] );
         if ( !DEV_MODE && !$valid['success'] )  {
             error_log( 'Request failed: ' . $valid['message'] );
-            header("HTTP/1.1 400 Bad Request");
-            die(DEV_MODE ? "Unvalidated" : "");
+            return $response->withJson(["error" => "the request is not valid"])->withStatus(400);
         }
 
         if($body['request']['type'] === "SessionEndedRequest") {
