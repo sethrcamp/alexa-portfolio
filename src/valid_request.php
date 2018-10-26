@@ -66,7 +66,7 @@ $ECHO_CERT_CACHE = '/var/cache/amazon_echo/';
     $valid_cert = valid_cert( $jsonRequest, $data, $ECHO_CERT_CACHE );
     if ( $valid_cert != 1 ) {
         return array ( 'success' => 5,
-                       'message' => $valid_cert );
+                       'message' => $valid_cert." ".$data );
     }
 
     // Validate time stamp
