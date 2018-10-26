@@ -10,6 +10,8 @@ $app->group('/', function() use ($app) {
 
 
         $valid = validate_request( explode("amzn1.ask.skill.", $body['context']['System']['application']['applicationId'])[1], explode("amzn1.ask.account.", $body['context']['System']['user']['userId'])[1] );
+        return $response->withJson($valid);
+
         if ( !DEV_MODE && !$valid['success'] )  {
             error_log( 'Request failed: ' . $valid['message'] );
             return $response->withJson(["error" => "the request is not valid"])->withStatus(400);
