@@ -16,7 +16,7 @@ $app->group('/', function() use ($app) {
             "response" => [
                 "outputSpeech" => [
                     "type" => "PlainText",
-                    "text" => "Success: ".$valid['success'],
+                    "text" => "Success: ".$valid['success']." Error: ".$valid['message'],
                     "playBehavior" => "REPLACE_ALL"
                 ],
                 "shouldEndSession" => true
