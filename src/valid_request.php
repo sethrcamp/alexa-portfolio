@@ -44,35 +44,35 @@ $ECHO_CERT_CACHE = '/var/cache/amazon_echo/';
 
     // Validate that it even came from Amazon ...
     if ( !isset( $_SERVER['HTTP_SIGNATURECERTCHAINURL'] ) ) {
-        return array( 'success' => 0,
+        return array( 'success' => 2,
                       'message' => "Looks like this didn't even come from Amazon" );
     }
 
     // Validate proper format of Amazon provided certificate chain url
     $valid_uri = valid_key_chain_uri( $_SERVER['HTTP_SIGNATURECERTCHAINURL'] );
     if ( $valid_uri != 1 ) {
-        return array( 'success' => 0,
+        return array( 'success' => 3,
                       'message' => $valid_uri );
     }
 
     // Validate that account IDs match
     $valid_id = valid_ids( $guid, $userid, $data );
     if ( $valid_id != 1 ) {
-        return array ( 'success' => 0,
+        return array ( 'success' => 4,
                        'message' => $valid_id );
     }
 
     // Validate certificate signature
     $valid_cert = valid_cert( $jsonRequest, $data, $ECHO_CERT_CACHE );
     if ( $valid_cert != 1 ) {
-        return array ( 'success' => 0,
+        return array ( 'success' => 5,
                        'message' => $valid_cert );
     }
 
     // Validate time stamp
     $valid_time = valid_time( $data );
     if ( $valid_time != 1 ) {
-        return array ('success' => 0,
+        return array ('success' => 6,
                       'message' => $valid_time );
     }
 
